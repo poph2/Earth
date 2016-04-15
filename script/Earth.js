@@ -19,7 +19,7 @@ function startBabylonJS() {
     // Scene, light and camera
     var scene = new BABYLON.Scene(engine);
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-    var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 200, new BABYLON.Vector3(0, 0, 0), scene);
+    var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 300, new BABYLON.Vector3(0, 0, 0), scene);
     camera.attachControl(canvas);
 
     // Assets manager
@@ -42,6 +42,25 @@ function startBabylonJS() {
 
     //Earth
     var sphere = BABYLON.Mesh.CreateSphere("Sphere", 20, 70, scene);
+
+    var sphere2 = BABYLON.Mesh.CreateSphere("Sphere", 20, 70, scene);
+    sphere2.position = new BABYLON.Vector3(-100, 0, 0);
+
+    var sphere3 = BABYLON.Mesh.CreateSphere("Sphere", 20, 70, scene);
+    sphere3.position = new BABYLON.Vector3(100, 0, 0);
+
+    var material = new BABYLON.StandardMaterial("kosh", scene);
+    material.bumpTexture = new BABYLON.Texture("material/normalMap.png", scene);
+
+    var mat = new BABYLON.StandardMaterial("earth_no_clouds", scene);
+    mat.diffuseTexture = new BABYLON.Texture("material/earth_no_clouds_2.jpg", scene);
+    //mat.diffuseTexture.uScale = 1.0;
+    //mat.diffuseTexture.vScale = 1.0;
+
+    sphere.material = material;
+    sphere2.material = mat;
+    sphere3.material = mat;
+
 
     // But you can also do it on the assets manager itself (onTaskSuccess, onTaskError)
     assetsManager.onTaskError = function (task) {
